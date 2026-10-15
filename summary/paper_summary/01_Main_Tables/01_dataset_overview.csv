@@ -1,0 +1,22 @@
+﻿Video,Status
+v0,Valid evaluation sequence
+v4,Valid evaluation sequence
+v10.5,Valid evaluation sequence
+v12,Valid evaluation sequence
+v21,Valid evaluation sequence
+v22,Valid evaluation sequence
+v23,Valid evaluation sequence
+v24,Valid evaluation sequence
+v31,Valid evaluation sequence
+v32,Valid evaluation sequence
+v33,Valid evaluation sequence
+v34,Valid evaluation sequence
+v35,Valid evaluation sequence
+v37,Valid evaluation sequence
+v40,Valid evaluation sequence
+v3,Excluded: excluded_from_valid_set
+v10,Excluded: excluded_from_valid_set
+v13,Excluded: excluded_from_valid_set
+v36,Excluded: excluded_from_valid_set
+v38,Excluded: excluded_from_valid_set
+v39,Excluded: duplicate_of_v21

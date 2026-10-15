@@ -1,0 +1,8 @@
+﻿Metric,Result,Raw value,Source
+Valid handoffs,15/15 (100%),15,Recomputed
+Mean handoff error,0.809 px,0.8091017389773623,Recomputed
+Median handoff error,0.885 px,0.8847128167350521,Recomputed
+Maximum handoff error,1.451 px,1.4509225194456357,Recomputed
+Handoff bounding-box width,3–6 px (mean: 4.73),4.733333333333333,Recomputed
+Handoff bounding-box height,3–7 px (mean: 4.80),4.8,Recomputed
+Mean estimated radius,2.53 px,2.534333333333333,Recomputed

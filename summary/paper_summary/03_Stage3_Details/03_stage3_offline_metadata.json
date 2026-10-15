@@ -1,0 +1,62 @@
+{
+  "input": "/mnt/data/results_summary_updated_extract/results_summary_updated",
+  "sources": {
+    "LBP": "02_all_stage2_lbp_frames.csv",
+    "LTP": "03_all_stage2_ltp_frames.csv",
+    "CSWC": "04_all_stage2_weighted_frames.csv"
+  },
+  "valid_videos": [
+    "v0",
+    "v4",
+    "v10.5",
+    "v12",
+    "v21",
+    "v22",
+    "v23",
+    "v24",
+    "v31",
+    "v32",
+    "v33",
+    "v34",
+    "v35",
+    "v37",
+    "v40"
+  ],
+  "common_eligible_videos": [
+    "v0",
+    "v10.5",
+    "v12",
+    "v21",
+    "v23",
+    "v24",
+    "v31",
+    "v32",
+    "v33",
+    "v34",
+    "v35",
+    "v37"
+  ],
+  "common_eligible_count": 12,
+  "reliability": "mode == MID_OK and online_reliable == 1",
+  "apex_detection": {
+    "delta_px": 2.0,
+    "confirm_n": 3,
+    "min_net_y_px": 0.8,
+    "max_reliable_frame_gap": 3
+  },
+  "eligibility": {
+    "min_fit_points": 4,
+    "min_gt_frames": 4,
+    "all_three_sources_required": true
+  },
+  "curve": {
+    "x_degree": 1,
+    "y_degree": 2,
+    "fit_points": "all reliable observations from detected apex through last GT frame"
+  },
+  "evaluation": {
+    "start": "source-specific detected apex",
+    "end": "last valid GT frame",
+    "aggregation": "pooled per-frame errors across the common eligible videos"
+  }
+}

@@ -1,0 +1,4 @@
+﻿Method,Videos,Frames,Mean Error (px),Median Error (px),Max Error (px),Success@2 px (%),Success@5 px (%),Source
+LBP,15,888,2.0115416666666666,1.0185,77.312,93.46846846846847,96.05855855855856,Recomputed from uploaded 02_all_stage2_lbp_frames.csv
+LTP,15,888,1.2764020270270273,0.958,27.389,95.4954954954955,97.86036036036036,Recomputed from uploaded 03_all_stage2_ltp_frames.csv
+CSWC,15,888,1.7066520270270271,0.9684999999999999,40.696,93.35585585585585,95.94594594594594,Recomputed from uploaded 04_all_stage2_weighted_frames.csv

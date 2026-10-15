@@ -1,0 +1,4 @@
+﻿Method,MID_OK frames,MID_OK share of 888 (%),Mean Error (px),Median Error (px),Max Error (px),Success@2 px (%),Success@5 px (%),Source
+LBP,817,92.0045045045045,1.05837576499388,0.965,33.118,98.65361077111383,99.75520195838433,Recomputed from uploaded 02_all_stage2_lbp_frames.csv
+LTP,830,93.46846846846847,0.9695469879518072,0.938,4.393,99.03614457831326,100.0,Recomputed from uploaded 03_all_stage2_ltp_frames.csv
+CSWC,816,91.8918918918919,0.976376225490196,0.929,5.439,98.65196078431373,99.87745098039215,Recomputed from uploaded 04_all_stage2_weighted_frames.csv

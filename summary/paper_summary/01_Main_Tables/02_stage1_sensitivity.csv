@@ -1,0 +1,5 @@
+﻿Evaluation setting,Valid positions,Mean Error (px),Median Error (px),Max Error (px),Success@2 px (%),Success@5 px (%),Source
+All valid predictions,306,2.1897611088130753,0.7297598325031838,142.55150516389074,90.84967320261438,96.40522875816994,Recomputed from uploaded 01_all_stage1_frames.csv + Stage2 start boundary
+Exclude first point,291,0.8806360476059629,0.7147127458777954,16.035110490410734,94.84536082474226,99.65635738831615,Recomputed from uploaded 01_all_stage1_frames.csv + Stage2 start boundary
+Exclude first 3 points,261,0.753417852859511,0.6851701937836642,3.8714247161737982,97.70114942528735,100.0,Recomputed from uploaded 01_all_stage1_frames.csv + Stage2 start boundary
+Exclude first 5 points,231,0.7439080309379169,0.6746540536315978,3.8714247161737982,97.40259740259741,100.0,Recomputed from uploaded 01_all_stage1_frames.csv + Stage2 start boundary

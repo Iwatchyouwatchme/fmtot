@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FMTOT — Fast-Moving Tiny Object Tracking</title>
+<meta name="description" content="Knowledge-Guided Tracking of Fast-Moving Tiny Objects under Motion Blur: A Golf-Ball Case Study. Code, results and dataset.">
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#15181d; --muted:#5b6472;
+    --line:#e5e8ee; --accent:#1f6feb; --accent-soft:#e8f0fe;
+    --good:#1a7f37; --warn:#9a6700; --mono:#f2f4f8;
+    --shadow:0 1px 2px rgba(20,24,33,.05),0 6px 20px rgba(20,24,33,.06);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0d1117; --panel:#161b22; --ink:#e6edf3; --muted:#9aa4b2;
+      --line:#242c38; --accent:#58a6ff; --accent-soft:#132132;
+      --good:#3fb950; --warn:#d29922; --mono:#0b0f16;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  header.hero{
+    background:linear-gradient(180deg,var(--accent-soft),transparent);
+    border-bottom:1px solid var(--line);padding:56px 0 40px;
+  }
+  .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 10px}
+  h1{font-size:clamp(26px,4.4vw,40px);line-height:1.18;margin:0 0 14px;letter-spacing:-.01em}
+  .sub{font-size:17px;color:var(--muted);max-width:720px;margin:0 0 22px}
+  .authors{font-size:15px;color:var(--ink);margin:0 0 6px}
+  .affil{font-size:14px;color:var(--muted);margin:0 0 22px}
+  .btns{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;
+    font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    box-shadow:var(--shadow);
+  }
+  .btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  main{padding:44px 0 72px}
+  section{margin:0 0 48px}
+  h2{font-size:22px;margin:0 0 6px;letter-spacing:-.01em}
+  h2 .n{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:8px}
+  .lead{color:var(--muted);margin:0 0 18px;max-width:760px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .stage-badge{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:999px;margin-bottom:10px}
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:4px 0 8px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .metric .v{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .metric .l{font-size:13px;color:var(--muted);margin-top:2px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);background:var(--panel)}
+  table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+  caption{text-align:left;padding:14px 16px 0;color:var(--muted);font-size:13px}
+  th,td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:12.5px;letter-spacing:.02em;color:var(--muted);text-transform:uppercase;background:var(--mono)}
+  tbody tr:last-child td{border-bottom:none}
+  tr.best td{background:var(--accent-soft)}
+  tr.best td:first-child{font-weight:700}
+  .tag{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:6px}
+  .note{font-size:13.5px;color:var(--muted);margin-top:8px}
+  code,.mono{font-family:"SF Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+  pre{background:var(--mono);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-size:13px;line-height:1.55}
+  .callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);border-radius:10px;padding:14px 16px;font-size:14.5px;color:var(--muted)}
+  footer{border-top:1px solid var(--line);padding:28px 0 56px;color:var(--muted);font-size:13.5px}
+  .edit{outline:1px dashed var(--warn);outline-offset:3px;border-radius:3px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">FMTOT · Golf-Ball Case Study</p>
+    <h1>Knowledge-Guided Tracking of Fast-Moving Tiny Objects under Motion Blur</h1>
+    <p class="sub">A three-stage, knowledge-guided pipeline that tracks a fast-moving, tiny golf ball through severe motion blur: motion-guided launch tracking, appearance-guided tiny-object localization, and selective least-squares trajectory recovery.</p>
+    <p class="authors edit">Authors: &lt;author names to be confirmed&gt;</p>
+    <p class="affil edit">Advisor: Prof. Royal Shih · National Central University &lt;please verify affiliation&gt;</p>
+    <div class="btns">
+      <a class="btn primary" href="#dataset">⬇ Dataset</a>
+      <a class="btn" href="code/">◇ Code</a>
+      <a class="btn" href="#results">▦ Results</a>
+      <a class="btn" href="https://github.com/royalshih/fmtot">★ GitHub</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p class="lead">Tracking a driven golf ball is a hard instance of the fast-moving tiny-object problem: the target is only a few pixels wide, moves across most of the frame between exposures, and smears into a motion-blur streak. FMTOT decomposes the task into three cooperating stages, each guided by prior knowledge of how the ball behaves rather than by a single learned detector.</p>
+    <div class="metrics">
+      <div class="metric"><div class="v">21</div><div class="l">video sequences (15 valid)</div></div>
+      <div class="metric"><div class="v">100%</div><div class="l">Stage 1 completion (15/15)</div></div>
+      <div class="metric"><div class="v">1.11 px</div><div class="l">best mean error (LTP, Stage 3)</div></div>
+      <div class="metric"><div class="v">99.2%</div><div class="l">success @ 5 px (LTP, Stage 3)</div></div>
+    </div>
+  </section>
+
+  <section id="method">
+    <h2>Method</h2>
+    <p class="lead">A knowledge-guided handoff passes control from stage to stage using a Compactness Transition Score, so each module runs only where its assumptions hold.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="stage-badge">Stage 1</span>
+        <h3>Motion-guided launch tracking</h3>
+        <p>Estimates the launch direction from a Motion History Image and multi-hypothesis search, then grows an initial trajectory. No assumption that the ball flies upward.</p>
+      </div>
+      <div class="card">
+        <span class="stage-badge">Stage 2</span>
+        <h3>Appearance-guided tiny tracking</h3>
+        <p>Normalized multi-cue candidate scoring for the few-pixel ball. Three texture descriptors are compared: LBP, LTP, and CSWC (the <code>weighted</code> variant in code).</p>
+      </div>
+      <div class="card">
+        <span class="stage-badge">Stage 3</span>
+        <h3>Selective trajectory recovery</h3>
+        <p>Least-squares fit of a linear-x / parabolic-y motion model over reliable observations, recovering the descending path where appearance tracking is unreliable.</p>
+      </div>
+    </div>
+    <p class="note">Motion model fitted in Stage 3: <code>x(t) = a₁t + a₀</code>, <code>y(t) = b₂t² + b₁t + b₀</code>, using only reliable (MID_OK) Stage 2 points from the image-plane apex onward.</p>
+  </section>
+
+  <section id="results">
+    <h2>Results</h2>
+    <p class="lead">Metrics are pixel localization errors against ground-truth annotations. "Success @ k px" is the share of frames within k pixels of ground truth. Best method per block highlighted.</p>
+
+    <div class="tablewrap" style="margin-bottom:22px">
+      <table>
+        <caption><strong>Stage 1 — initial trajectory vs. baselines.</strong> Completion rate is sequences fully tracked.</caption>
+        <thead><tr><th>Method</th><th>Completion</th><th>Mean (px)</th><th>Median (px)</th><th>S@2 (%)</th><th>S@5 (%)</th></tr></thead>
+        <tbody>
+          <tr><td>MHP</td><td>60.0% (9/15)</td><td>32.31</td><td>3.16</td><td>44.8</td><td>54.8</td></tr>
+          <tr><td>CMR-P</td><td>46.7% (7/15)</td><td>25.82</td><td>3.16</td><td>44.8</td><td>55.2</td></tr>
+          <tr><td>CMR-C</td><td>73.3% (11/15)</td><td>23.75</td><td>1.36</td><td>54.5</td><td>80.3</td></tr>
+          <tr class="best"><td>Proposed Stage 1</td><td>100% (15/15)</td><td>2.19</td><td>0.73</td><td>90.9</td><td>96.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap" style="margin-bottom:22px">
+      <table>
+        <caption><strong>Stage 2 — tiny-object tracking</strong> across 15 videos, 888 frames.</caption>
+        <thead><tr><th>Method</th><th>Mean (px)</th><th>Median (px)</th><th>Max (px)</th><th>S@2 (%)</th><th>S@5 (%)</th></tr></thead>
+        <tbody>
+          <tr><td>LBP</td><td>2.01</td><td>1.02</td><td>77.31</td><td>93.5</td><td>96.1</td></tr>
+          <tr class="best"><td>LTP</td><td>1.28</td><td>0.96</td><td>27.39</td><td>95.5</td><td>97.9</td></tr>
+          <tr><td>CSWC</td><td>1.71</td><td>0.97</td><td>40.70</td><td>93.4</td><td>95.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption><strong>Stage 3 — offline descending-trajectory reproduction.</strong> 12 videos, ~472 frames. Exact reproduction from consolidated Stage 2 outputs.</caption>
+        <thead><tr><th>Method</th><th>Mean (px)</th><th>Median (px)</th><th>RMSE (px)</th><th>S@2 (%)</th><th>S@5 (%)</th></tr></thead>
+        <tbody>
+          <tr><td>LBP</td><td>2.45</td><td>1.05</td><td>8.18</td><td>91.9</td><td>95.8</td></tr>
+          <tr class="best"><td>LTP</td><td>1.11</td><td>1.04</td><td>1.35</td><td>95.5</td><td>99.2</td></tr>
+          <tr><td>CSWC</td><td>1.90</td><td>1.02</td><td>4.76</td><td>91.5</td><td>95.6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Stage 1 → Stage 2 handoff: 15/15 valid (100%), mean handoff error 0.81 px, max 1.45 px. Full per-video and per-frame tables are in <code>summary/</code>.</p>
+  </section>
+
+  <section id="dataset">
+    <h2>Dataset</h2>
+    <p class="lead">The full dataset (<strong>Thesis_Data</strong>, ~5.6 GB zipped) holds the raw videos, per-frame images, ground-truth <code>annotations.csv</code>, and per-video results for 21 sequences. It is hosted on Google Drive because it exceeds GitHub's file-size limits.</p>
+    <div class="callout">
+      <strong>Download:</strong> <a href="https://drive.google.com/file/d/1gHv1lzOXS9tcFB7K17-iWNxIwfYTJEUJ/view?usp=sharing">Thesis_Data.zip on Google Drive</a> (~5.6 GB).<br>
+      Contents: <code>01_data/</code> (videos + frames + annotations), <code>02_code/</code> (pipeline), <code>03_summary/</code> (result tables). The code and all result tables are also mirrored in this repository.
+    </div>
+  </section>
+
+  <section id="code">
+    <h2>Code</h2>
+    <p class="lead">The pipeline is plain Python + OpenCV + NumPy. Each video folder provides <code>frames/</code> and <code>annotations.csv</code>.</p>
+    <pre>fmtot/
+├─ code/
+│  ├─ run_pipeline.py          # end-to-end tracker (Stage 1 → 2 → 3)
+│  ├─ stage1.py                # motion-guided launch + initial trajectory
+│  ├─ stage2.py                # LBP / LTP / CSWC tiny-object tracking
+│  ├─ stage3.py                # least-squares trajectory recovery
+│  └─ stage3_offline_eval.py   # offline Stage 3 evaluation (reproduces Table V)
+└─ summary/
+   ├─ paper_summary/           # tables used in the paper
+   └─ raw_summary/             # full consolidated results</pre>
+    <pre># general tracking (run inside a video folder with frames/ + annotations.csv)
+python run_pipeline.py
+
+# offline Stage 3 experiment (reads existing Stage 2 outputs)
+python stage3_offline_eval.py</pre>
+    <p class="note">In code, the method key <code>weighted</code> corresponds to <strong>CSWC</strong> in the paper.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>FMTOT — Fast-Moving Tiny Object Tracking · Golf-Ball Case Study.</p>
+    <p class="edit">Citation &amp; contact: &lt;to be added&gt;.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,5 @@
+﻿Method,Completion rate,Mean Error (px),Median Error (px),Success@2 px (%),Success@5 px (%),Origin
+MHP,60.000% (9/15),32.314,3.162,44.839,54.839,Paper-reported; baseline raw outputs not included in uploaded summary ZIP
+CMR-P,46.667% (7/15),25.816,3.162,44.839,55.161,Paper-reported; baseline raw outputs not included in uploaded summary ZIP
+CMR-C,73.333% (11/15),23.747,1.362,54.516,80.323,Paper-reported; baseline raw outputs not included in uploaded summary ZIP
+Proposed Stage 1,100.000% (15/15),2.19,0.73,90.85,96.405,Paper-reported; Proposed row independently reproduced from uploaded raw summary

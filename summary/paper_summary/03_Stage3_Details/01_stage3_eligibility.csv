@@ -1,0 +1,16 @@
+﻿Video,Included in paper 9-row comparison,LBP ApexFrame,LBP PlateauStart,LBP PlateauEnd,LBP FitReliablePoints,LBP EvalGTFrames,LTP ApexFrame,LTP PlateauStart,LTP PlateauEnd,LTP FitReliablePoints,LTP EvalGTFrames,CSWC ApexFrame,CSWC PlateauStart,CSWC PlateauEnd,CSWC FitReliablePoints,CSWC EvalGTFrames,Exclusion reason
+v0,Yes,65,53,65,76,98,65,54,65,75,98,65,54,65,76,98,
+v4,No,,,,0,0,,,,0,0,,,,0,0,LBP: apex unavailable; LTP: apex unavailable; CSWC: apex unavailable
+v10.5,Yes,54,45,54,53,54,54,45,54,53,54,54,45,54,53,54,
+v12,Yes,22,18,22,4,4,22,19,22,4,4,22,19,22,4,4,
+v21,Yes,79,68,79,50,47,79,68,79,50,47,79,70,79,50,47,
+v22,No,66,65,66,1,20,66,65,66,1,20,66,65,66,1,20,LBP: only 1 post-apex reliable points; LTP: only 1 post-apex reliable points; CSWC: only 1 post-apex reliable points
+v23,Yes,67,57,67,6,6,67,57,67,6,6,67,57,67,6,6,
+v24,Yes,87,79,87,14,30,87,79,87,31,30,87,79,87,13,30,
+v31,Yes,63,53,63,42,38,63,53,63,42,38,63,53,63,42,38,
+v32,Yes,54,47,54,80,80,54,47,54,80,80,54,47,54,80,80,
+v33,Yes,55,48,55,51,50,55,48,55,51,50,55,48,55,51,50,
+v34,Yes,53,45,53,38,36,53,45,53,38,36,53,45,53,38,36,
+v35,Yes,58,51,58,11,12,59,50,59,10,11,58,52,58,11,12,
+v37,Yes,68,57,68,17,17,68,57,68,17,17,68,58,68,17,17,
+v40,No,54,45,54,2,7,52,45,54,4,8,52,45,54,4,8,LBP: only 2 post-apex reliable points
