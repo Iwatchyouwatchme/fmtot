@@ -4,7 +4,7 @@ A Golf-Ball Case Study.
 
 **Author:** Royal Shih, National Central University
 
-**Project page:** https://royalshih.github.io/fmtot/
+**Project page:** https://iwatchyouwatchme.github.io/fmtot/
 
 A three-stage, knowledge-guided pipeline for tracking a fast-moving, tiny golf ball
 under severe motion blur:
@@ -43,7 +43,7 @@ fitted only on reliable (MID_OK) Stage 2 points from the image-plane apex onward
 
 The full dataset (`Thesis_Data.zip`, ~5.6 GB) holds the raw videos, per-frame images,
 ground-truth `annotations.csv`, and per-video results for 21 sequences. Because it exceeds
-GitHub's per-file limit, it is attached to [**GitHub Releases**](https://github.com/royalshih/fmtot/releases/latest)
+GitHub's per-file limit, it is attached to [**GitHub Releases**](https://github.com/Iwatchyouwatchme/fmtot/releases/latest)
 as three split parts (each < 2 GB). Download all parts, then rejoin:
 
 ```bash
