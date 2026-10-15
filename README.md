@@ -2,6 +2,8 @@
 
 A Golf-Ball Case Study.
 
+**Author:** Royal Shih, National Central University
+
 **Project page:** https://royalshih.github.io/fmtot/
 
 A three-stage, knowledge-guided pipeline for tracking a fast-moving, tiny golf ball
@@ -39,10 +41,19 @@ fitted only on reliable (MID_OK) Stage 2 points from the image-plane apex onward
 
 ## Dataset
 
-The full dataset (`Thesis_Data.zip`, ~5.6 GB) — raw videos, per-frame images,
-ground-truth `annotations.csv`, and per-video results for 21 sequences — is hosted on
-Google Drive because it exceeds GitHub's file-size limits:
+The full dataset (`Thesis_Data.zip`, ~5.6 GB) holds the raw videos, per-frame images,
+ground-truth `annotations.csv`, and per-video results for 21 sequences. Because it exceeds
+GitHub's per-file limit, it is attached to [**GitHub Releases**](https://github.com/royalshih/fmtot/releases/latest)
+as three split parts (each < 2 GB). Download all parts, then rejoin:
 
+```bash
+# Windows
+copy /b Thesis_Data_part_00 + Thesis_Data_part_01 + Thesis_Data_part_02 Thesis_Data.zip
+# macOS / Linux
+cat Thesis_Data_part_* > Thesis_Data.zip
+```
+
+Mirror (single file) on Google Drive:
 **https://drive.google.com/file/d/1gHv1lzOXS9tcFB7K17-iWNxIwfYTJEUJ/view?usp=sharing**
 
 The `code/` and `summary/` folders in this repository mirror `02_code/` and `03_summary/`
